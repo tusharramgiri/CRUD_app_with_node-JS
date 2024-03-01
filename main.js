@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 4000;
 mongoose.connect(process.env.MONGO_URI)
 const db = mongoose.connection;
 db.on('error', (error) => console.log(error));
-db.once('open', () => console.log("connected to the database!"));
+db.once('open', () => console.log("connected to the database!!"));
 
 //middlewares
 app.use(express.urlencoded({extended: false}));
@@ -24,9 +24,20 @@ app.use(session({
     })
 );
 
+app.use((req, res, next) => {
+    res.locals.message = req.session.message;
+    delete req.session.message;
+    next();
+})
+
+//set template engine
+app.set('view engine', 'ejs');
+
+//route prefix
+app.use("", require("./routes/routes"));
 
 app.get("/", (req, res) => {
-    res.send("Hello World");
+    res.send("<h1>Hello World</h1>");
 });
 
 app.listen(PORT, () => {
