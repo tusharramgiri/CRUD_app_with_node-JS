@@ -36,9 +36,9 @@ app.set('view engine', 'ejs');
 //route prefix
 app.use("", require("./routes/routes"));
 
-app.get("/", (req, res) => {
-    res.send("<h1>Hello World</h1>");
-});
+// app.get("/", (req, res) => {
+//     res.send("<h1>Hello World</h1>");
+// });
 
 app.listen(PORT, () => {
     console.log(`server is started at http://localhost:${PORT}`);
